@@ -8,7 +8,7 @@
 
 #define DIMMED_HSV_GREEN 85, 255, 50
 #define DIMMED_HSV_BLUE 170, 255, 50
-#define DIMMED_HSV_GOLD 36, 255, 50
+#define DIMMED_HSV_GOLD 36, 255, 100
 #define DIMMED_HSV_WHITE 0, 0, 100
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_ENT,           RGB_TOG, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+     KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_ENT,           RGB_TOG, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     KC_LGUI, KC_LALT, KC_NO,                     KC_SPC,  KC_RALT, TT(_RAISE)
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -43,15 +43,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_10KEY] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______, _______, _______, _______, _______, _______,                            _______, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, _______,
+     _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, KC_UP,   _______, _______, _______,                            _______, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, _______,
+     _______, KC_NO,   KC_UP,   KC_NO,   KC_NO,   KC_NO,                              KC_NO,   KC_P7,   KC_P8,   KC_P9,   KC_PPLS, KC_NO,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,                            _______, KC_P4,   KC_P5,   KC_P6,   KC_PENT, _______,
+     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_NO,                              KC_NO,   KC_P4,   KC_P5,   KC_P6,   KC_PENT, KC_NO,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, _______, _______, _______, _______, _______, _______,          _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PDOT, _______,
+     _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, _______,          _______,   KC_NO,   KC_P1,   KC_P2,   KC_P3,   KC_PDOT, KC_NO,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_SPC,  _______, _______,                   _______, KC_P0,   _______
+                                    _______, _______, _______,                   _______, KC_P0,   _______
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -89,24 +89,29 @@ void encoder_update_user(uint8_t index, bool clockwise) {
 }
 
 const rgblight_segment_t PROGMEM dvorak_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 12, DIMMED_HSV_GREEN},
+    {0, 12, DIMMED_HSV_GREEN}
 );
 const rgblight_segment_t PROGMEM qwerty_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {1, 12, DIMMED_HSV_BLUE}
+    {0, 12, DIMMED_HSV_BLUE}
 );
 const rgblight_segment_t PROGMEM tenkey_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {6, 2, DIMMED_HSV_GOLD}
+    {4, 4, DIMMED_HSV_GOLD}
+);
+const rgblight_segment_t PROGMEM numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, DIMMED_HSV_GOLD},
+    {11, 1, DIMMED_HSV_GOLD}
 );
 const rgblight_segment_t PROGMEM raise_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {6, 2, DIMMED_HSV_WHITE},
-    {1, 1, DIMMED_HSV_WHITE},
-    {12,1, DIMMED_HSV_WHITE}
+    {5, 2, DIMMED_HSV_WHITE},
+    {0, 1, DIMMED_HSV_WHITE},
+    {11,1, DIMMED_HSV_WHITE}
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     dvorak_layer,
     qwerty_layer,
     tenkey_layer,
+    numlock_layer,
     raise_layer
 );
 
@@ -114,10 +119,20 @@ void keyboard_post_init_user(void) {
     rgblight_layers = my_rgb_layers;
 }
 
+// default layers have separate callback
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
+   rgblight_set_layer_state(0, layer_state_cmp(state, _DVORAK));
+   rgblight_set_layer_state(1, layer_state_cmp(state, _QWERTY));
+   return state;
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(1, layer_state_cmp(state, _DVORAK));
-    rgblight_set_layer_state(2, layer_state_cmp(state, _QWERTY));
-    rgblight_set_layer_state(3, layer_state_cmp(state, _10KEY));
+    rgblight_set_layer_state(2, layer_state_cmp(state, _10KEY));
     rgblight_set_layer_state(4, layer_state_cmp(state, _RAISE));
     return state;
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(3, layer_state_is(_10KEY) && led_state.num_lock);
+    return true;
 }
